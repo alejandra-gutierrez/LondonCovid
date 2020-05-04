@@ -68,16 +68,3 @@ p.add_layout(color_bar, 'below')
 show(p)
 
 
-
-# def json_data(selectedYear):
-#     yr = selectedYear
-#     column_name = 'column'+yr
-#     df_yr = infection_df[['Unnamed: 1', column_name]]
-#
-#     merged = map_df.set_index('NAME').join(df_yr.set_index('Unnamed: 1'))
-#     merged_json = json.loads(merged.to_json())
-#     json_data = json.dumps(merged_json)
-#     print(merged)
-#     return json_data
-
-

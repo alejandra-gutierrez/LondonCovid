@@ -27,9 +27,7 @@ from bokeh.models.ranges import FactorRange
 from bokeh.plotting import figure, output_file, show, ColumnDataSource
 from bokeh.models import ColumnDataSource, CDSView, IndexFilter, BooleanFilter, HoverTool
 
-import pandas as pd
-import random
-from datetime import timedelta
+
 
 
 fp = "data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp"
@@ -97,7 +95,7 @@ slider.js_on_change('value', callback)
 # slider.on_change('value', update_plot)
 
 # Make a column layout of widgetbox(slider) and plot, and add it to the current document
-layout = column(p,Column(slider))
+layout = column(p,slider)
 curdoc().add_root(layout)
 show(layout)
 

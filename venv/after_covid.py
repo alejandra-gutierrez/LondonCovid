@@ -20,23 +20,36 @@ df = df.rename(columns={'transit_stations_percent_change_from_baseline':'transit
 df = df.rename(columns={'workplaces_percent_change_from_baseline':'workplaces'})
 df = df.rename(columns={'residential_percent_change_from_baseline':'residential'})
 
-print(tabulate(df[152:160], headers='keys', tablefmt='psql'))
+# print(tabulate(df[0:20], headers='keys', tablefmt='psql'))
 
 # Manipulate Dataframe
 df_countries = df.groupby(['Country', 'Date']).sum().reset_index().sort_values('Date', ascending=False)
 df_countries = df_countries.drop_duplicates(subset = ['Country'])
-# df_countries = df_countries[df_countries['Active']>0]
 
 # Manipulating the original dataframe
 df_countrydate = df
 df_countrydate = df_countrydate.groupby(['Date','Country']).sum().reset_index()
 min_cases = df_countrydate['residential'].min()
 
-# Creating the visualization
+
+
+df_country = df.groupby(['Country','Date']).sum().reset_index()
+c2 = df_country[df_country['Country']=="New Zealand"]
+c3 = df_country[df_country['Country']=="Brazil"]
+c4 = df_country[df_country['Country']=="United Kingdom"]
+c5 = df_country[df_country['Country']=="United States"]
+c6 = df_country[df_country['Country']=="South Africa"]
+
+frames = [c2, c3, c4, c5, c6]
+countries = pd.concat(frames)
+
+fig = px.line(countries, x="Date", y="residential", title='residential', color = 'Country')
+fig.show()
+
 fig = px.choropleth(df_countrydate,
                     locations="Country",
                     locationmode="country names",
-                    color="residential",
+                    color="retail",
                     hover_name="Country",
                     animation_frame="Date",
                     # range_color=(0, 20000),
@@ -52,4 +65,4 @@ fig.update_layout(
         showcoastlines=False,
     ))
 
-fig.show()
+# fig.show()

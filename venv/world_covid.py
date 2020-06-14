@@ -17,13 +17,13 @@ df = df.rename(columns={'ObservationDate':'Date'})
 df['Active'] = df['Confirmed']-df['Recovered']
 
 # Manipulate Dataframe
-df_countries = df.groupby(['Country', 'Date']).sum().reset_index().sort_values('Date', ascending=False)
+df_countries = df.groupby(['Country', 'Date']).mean().reset_index().sort_values('Date', ascending=False)
 df_countries = df_countries.drop_duplicates(subset = ['Country'])
 df_countries = df_countries[df_countries['Active']>0]
 
 # Manipulating the original dataframe
 df_countrydate = df[df['Active']>0]
-df_countrydate = df_countrydate.groupby(['Date','Country']).sum().reset_index()
+df_countrydate = df_countrydate.groupby(['Date','Country']).mean().reset_index()
 min_cases = df_countrydate['Active'].min()
 
 # Creating the visualization

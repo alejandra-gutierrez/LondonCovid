@@ -46,4 +46,4 @@ fig.update_layout(
         showcoastlines=False,
     ))
 
-# fig.show()
+fig.show()

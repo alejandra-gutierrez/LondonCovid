@@ -76,9 +76,10 @@ c6 = df_country[df_country['Country']==f]
 
 frames = [c1, c2, c3, c4, c5, c6]
 countries = pd.concat(frames)
+print(countries.head(10))
 # -------------------------------- Line Graph -------------------------------------
 fig = px.line(countries, x="Date", y="retail", title='retail', color = 'Country')
-fig.show()
+# fig.show()
 
 # -------------------------------- Scatter Plot -------------------------------------
 
@@ -113,6 +114,13 @@ merged.loc[merged.Country == f , "Annotation"] = f
 
 fig = px.scatter(merged, x="Minimum", y="Maximum",  labels={'x':'Worst', 'y':'Best'},
                  hover_data=['Country'], color = "Continent_x", text="Annotation", size_max=30)
+# fig.show()
+# ----------------------------------- Box Plot --------------------------------------
+countries['Date'] = pd.to_datetime(countries['Date'], format = '%Y-%m-%d')
+countries.set_index('Date', inplace=True)
+countries = countries.sort_index()
+df_truncated1 = countries.truncate(before='2020-03-08 00:00:00')
+fig = px.box(df_truncated1, y="retail", x = "Country")
 fig.show()
 
 # ------------------------------ Chroropleth Graph -----------------------------------
